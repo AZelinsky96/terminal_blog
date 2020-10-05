@@ -6,6 +6,7 @@ authors = ["Anthony <azelinsky1996@gmail.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
+pymongo = "^3.11.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
@@ -13,3 +14,6 @@ pytest = "^5.2"
 [build-system]
 requires = ["poetry>=0.12"]
 build-backend = "poetry.masonry.api"
+
+[tool.poetry.scripts]
+term="terminal_blog.app:main"
