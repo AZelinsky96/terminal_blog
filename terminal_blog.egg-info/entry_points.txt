@@ -1,0 +1,3 @@
+[console_scripts]
+term = terminal_blog.app:main
+
