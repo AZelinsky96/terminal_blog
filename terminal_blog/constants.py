@@ -1,1 +1,1 @@
-uri = "mongodb://localhost:27017"
+local_uri = "mongodb://localhost:27017"
