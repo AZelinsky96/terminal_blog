@@ -13,7 +13,7 @@ def main() -> None:
         author="Anthony", blog_title="Anthony's Blog",
         description="My first blog", database=mongo_dao
     )
-    blog.create_post()
+    blog.save_to_mongo()
 
 
 if __name__ == "__main__":
