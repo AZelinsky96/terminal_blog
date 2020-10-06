@@ -50,4 +50,3 @@ class Post(object):
             title=post_data['title'],
             database=database
         )
-        self.database.find_one(self.COLLECTION, {"post_id": post_id})
