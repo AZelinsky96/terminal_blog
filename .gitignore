@@ -1,2 +1,4 @@
 *.egg*
-*.pyc
+*.pyc*
+
+*__pycache__
