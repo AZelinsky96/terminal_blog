@@ -4,7 +4,8 @@ from terminal_blog.post import Posts
 from terminal_blog.db_client_factory import MongoClientFactory
 from terminal_blog.mongo_dao import MongoDao
 
-def main():
+
+def main() -> None:
     mongo_client = MongoClientFactory("local").create_client()
     mongo_dao = MongoDao(mongo_client, "fullstack")
     posts = Posts(mongo_dao)
@@ -14,7 +15,6 @@ def main():
     #     content="This is my first post.",
     #     title="Primary Post",
     # )
-
 
 if __name__ == "__main__":
     main()
