@@ -9,11 +9,14 @@ from terminal_blog.mongo_dao import MongoDao
 def main() -> None:
     mongo_client = MongoClientFactory("local").create_client()
     mongo_dao = MongoDao(mongo_client, "fullstack")
-    blog = Blog(
-        author="Anthony", blog_title="Anthony's Blog",
-        description="My first blog", database=mongo_dao
+    blog = Blog.get_blog_from_mongo(
+        blog_id='7613a5e8ed2d4a0f9a040bcbbd5365fc', database=mongo_dao
     )
-    blog.save_to_mongo()
+    # blog.create_post()
+    post = Post.get_post_from_mongo(
+        post_id='0f956cb6e46749a982412056d17b86ee', database=mongo_dao
+    )
+    print(post)
 
 
 if __name__ == "__main__":

@@ -17,8 +17,10 @@ class Post(object):
 
 
     def __repr__(self) -> str:
-        return f"<Post object attrs: blog_id='{self.blog_id}, 'post_id='{self.post_id}', title='{self.title}'"
-
+        return (
+            f"<Post object attrs: blog_id='{self.blog_id}, 'post_id='{self.post_id}', "
+            f"title='{self.title}', author='{self.author}'>"
+        )
     def create_json(self) -> dict:
         return {
             "blog_id": self.blog_id,
@@ -38,9 +40,9 @@ class Post(object):
         return [post for post in self.database.find(self.COLLECTION, kwargs)]
 
     @classmethod
-    def get_post_from_mongo(self, post_id: int, database: database) -> dict:
+    def get_post_from_mongo(cls, post_id: int, database: object) -> object:
         post_data = database.find_one(
-            collection=self.COLLECTION, query={"post_id": post_id}
+            collection=cls.COLLECTION, query={"post_id": post_id}
         )
         return cls(
             blog_id=post_data['blog_id'],

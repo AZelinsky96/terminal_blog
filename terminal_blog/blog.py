@@ -18,6 +18,11 @@ class Blog(object):
         self.database = database
         self.blog_id = uuid4().hex if blog_id is None else blog_id
 
+    def __repr__(self) -> str:
+        return (
+            f"<Blog object: blog_title='{self.blog_title}', author='{self.author}', "
+            f"blog_id='{self.blog_title}', description='{self.description}'>"
+        )
 
     def create_post(self) -> None:
         title = input("Enter post title: ")
@@ -39,20 +44,19 @@ class Blog(object):
         return {
             "blog_id": self.blog_id,
             "author": self.author,
-            "title": self.title,
+            "blog_title": self.blog_title,
             "description": self.description,
             "date_created": datetime.now().strftime("%Y-%m-%d  %H:%M:%S")
         }
 
     @classmethod
-    def get_blog_from_mongo(cls, blog_id: str, database: object) -> Blog:
+    def get_blog_from_mongo(cls, blog_id: str, database: object) -> object:
         blog_data = database.find_one(
-            collection="blogs",
-            query={"blog_id": blog_id}
+            collection=cls.COLLECTION, query={"blog_id": blog_id}
         )
         return cls(
             author=blog_data['author'],
-            title=blog_data['title'],
+            blog_title=blog_data['blog_title'],
             description=blog_data["description"],
             database=database,
             blog_id=blog_data['blog_id']
