@@ -25,12 +25,10 @@ class Blog(object):
         )
 
     def create_post(self) -> None:
-        title = input("Enter post title: ")
-        content = input("Enter post content: ")
-        post = Post(
-            blog_id=self.blog_id, author=self.author, content=content, 
-            title=title, database=self.database)
-        post.save_to_mongo()
+        Post(
+            blog_id=self.blog_id, author=self.author, title=input("Enter post title: "),
+            content=input("Enter post content: "), database=self.database
+        ).save_to_mongo()
 
     def find_posts_from_blog(self) -> list:
         return [post for post in self.database.find("posts", {"blog_id": self.blog_id})]
