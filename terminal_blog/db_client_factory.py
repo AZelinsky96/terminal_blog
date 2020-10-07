@@ -9,17 +9,18 @@ def create_local_client() -> MongoClient:
     return MongoClient(local_uri)
 
 
-class MongoClientFactory(object):
+CONNECTIONS = {
+    "local": create_local_client
+}
 
-    CONNECTIONS = {
-        "local": create_local_client
-    }
+
+class MongoClientFactory(object):
 
     def __init__(self, connection_type: str):
         self.connection_type = connection_type
 
     def create_client(self) -> MongoClient:
         try:
-            return self.CONNECTIONS[self.connection_type]()
+            return CONNECTIONS[self.connection_type]()
         except KeyError:
             raise KeyError("Unsupported Connection Type")

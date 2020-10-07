@@ -9,6 +9,7 @@ class Menu(object):
     def check_for_user(self) -> None:
         self.user = input("Please enter your username: ")
         if self.verify_user_has_account():
+            self.fetch_blog()
             print(f"Welcome back: {self.user}")
         else:
             print("No user found, please create your blog!")
@@ -16,7 +17,6 @@ class Menu(object):
 
     def verify_user_has_account(self):
         user_result = [user for user in self.database.find("blogs", {"author": self.user})]
-        self.fetch_blog()
         return True if user_result else False
     
     def prompt_user_for_account(self):
@@ -62,13 +62,26 @@ class Menu(object):
     
     def view_blogs(self):
         blog_to_view = input("Enter blog id you'd want to view: ")
-        blog = Blog.get_blog_from_mongo(
-            blog_id=blog_to_view, database=self.database
-        )
-        for post in blog.find_posts_from_blog():
-            print(
-                f"\nDate: {post['date_created']}\nTitle: {post['title']}\nAuthor: {post['author']}\nContent:\n{post['content']}\n"
+        try:
+            blog = Blog.get_blog_from_mongo(
+                blog_id=blog_to_view, database=self.database
             )
+            for post in blog.find_posts_from_blog():
+                print(
+                    f"\nDate: {post['date_created']}\nTitle: {post['title']}\nAuthor: {post['author']}\nContent:\n{post['content']}\n"
+                )
+        except Exception:
+            self.rerun_view_blogs()
+
+    def rerun_view_blogs(self):
+        break_loop = input("Invalid Entry: Would you like to continue? [y/n]: ")
+        if break_loop.lower() == "y":
+            self.read_blogs()
+        elif break_loop.lower() == 'n':
+            print("Have a nice day!")
+            exit()
+        else:
+            self.rerun_view_blogs()
 
     def write_to_blog(self):
         self.user_blog.create_post()
