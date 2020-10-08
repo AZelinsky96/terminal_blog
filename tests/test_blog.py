@@ -1,19 +1,7 @@
 import pytest
 
 from terminal_blog.blog import Blog
-
-class MockDatabase:
-
-    def find(*args, **kwargs):
-        return [num for num in range(10)]
-
-    def find_one(*args, **kwargs):
-        return {
-            "author": "Anthony",
-            "blog_title": "Test",
-            "description": "Test desc",
-            "blog_id": "1"
-        }
+from tests.test_constants import MockDatabase
     
 
 @pytest.fixture

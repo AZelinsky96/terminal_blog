@@ -1,5 +1,6 @@
 from terminal_blog.blog import Blog
 
+
 class Menu(object):
 
     def __init__(self, database):
@@ -39,8 +40,9 @@ class Menu(object):
     
     def check_if_read_or_write(self):
         read_or_write = input("Would you like to read (R) or write (W)?: ")
-        while read_or_write.lower() not in ("r", "w"):
-            read_or_write = input("Invalid entry! Please enter (R) to read or (W) to write: ")
+        if read_or_write.lower() not in ("r", "w"):
+            print("Invalid entry! Please enter (R) to read or (W) to write.")
+            self.check_if_read_or_write()
         return read_or_write
     
     def run_menu_helper(self, read_or_write):
